@@ -1,0 +1,172 @@
+/* Digit span task styles. Sized for phones first, then laptops. */
+
+#display_stage,
+#display_stage .jspsych-content {
+  color: #1d2433;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#display_stage .jspsych-content {
+  max-width: 680px;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.stm-text {
+  font-size: clamp(17px, 4.4vw, 21px);
+  line-height: 1.55;
+  text-align: left;
+}
+
+.stm-text h2 {
+  font-size: clamp(24px, 6vw, 32px);
+  margin: 0 0 0.75rem;
+  text-align: center;
+}
+
+.stm-ready {
+  text-align: center;
+}
+
+.stm-ready-label {
+  font-size: clamp(16px, 4vw, 20px);
+  color: #5a6478;
+  margin: 0 0 0.5rem;
+}
+
+.stm-ready-text {
+  font-size: clamp(30px, 8vw, 44px);
+  font-weight: 600;
+  margin: 0;
+}
+
+.stm-digit {
+  font-size: clamp(96px, 30vw, 180px);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  min-height: 1em;
+}
+
+.stm-feedback {
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 700;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.stm-feedback-correct {
+  color: #1f7a3d;
+}
+
+.stm-feedback-wrong {
+  color: #a3361f;
+}
+
+.stm-span-score {
+  font-size: clamp(64px, 18vw, 110px);
+  font-weight: 700;
+  line-height: 1;
+  margin: 0.25rem 0 1rem;
+  text-align: center;
+  color: #022851;
+}
+
+.stm-keypad-wrap {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.stm-prompt {
+  font-size: clamp(17px, 4.4vw, 20px);
+  margin-bottom: 0.75rem;
+}
+
+.stm-entry {
+  min-height: 56px;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border: 2px solid #b8c2d3;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  word-break: break-all;
+}
+
+.stm-entry-placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: #8a93a5;
+  letter-spacing: 0;
+}
+
+.stm-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stm-key {
+  min-height: 64px;
+  border: 1px solid #b8c2d3;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #1d2433;
+  font-size: 28px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.stm-key:active {
+  background: #e3e9f3;
+}
+
+.stm-key-del {
+  font-size: 18px;
+  color: #5a6478;
+}
+
+.stm-key-done {
+  font-size: 20px;
+  background: #022851;
+  border-color: #022851;
+  color: #ffffff;
+}
+
+.stm-key-done:active {
+  background: #0d3f73;
+}
+
+.stm-key-done:disabled {
+  background: #c9d0dc;
+  border-color: #c9d0dc;
+  cursor: default;
+}
+
+#display_stage .jspsych-btn {
+  font-size: 20px;
+  padding: 12px 28px;
+  border-radius: 10px;
+  margin-top: 1rem;
+  font-family: inherit;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .stm-key:not(:disabled):hover {
+    border-color: #022851;
+  }
+}

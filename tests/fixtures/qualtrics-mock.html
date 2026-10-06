@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qualtrics mock</title>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      // Minimal stand-in for the Qualtrics question API the wrapper uses
+      window.__embeddedData = {};
+      window.__nextClicked = false;
+      window.__nextHidden = false;
+      window.__onload = [];
+      window.Qualtrics = {
+        SurveyEngine: {
+          addOnload: function (fn) { window.__onload.push(fn); },
+          addOnReady: function () {},
+          addOnUnload: function () {},
+          setEmbeddedData: function (key, value) { window.__embeddedData[key] = value; }
+        }
+      };
+      window.__question = {
+        hideNextButton: function () { window.__nextHidden = true; },
+        clickNextButton: function () { window.__nextClicked = true; }
+      };
+    </script>
+  </head>
+  <body>
+    <div id="question-html"></div>
+    <script src="/qualtrics-v7/stm-qualtrics.js"></script>
+    <script>
+      fetch("/qualtrics-v7/stm-question.html")
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          document.getElementById("question-html").innerHTML = html;
+          window.__onload.forEach(function (fn) { fn.call(window.__question); });
+        });
+    </script>
+  </body>
+</html>

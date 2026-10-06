@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Digit Span Task</title>
+    <style>
+      :root {
+        --bg: #f6f7fb;
+        --text: #1d2433;
+        --muted: #5a6478;
+        --link: #022851;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #141821;
+          --text: #e6e9ef;
+          --muted: #a3abbb;
+          --link: #9cc3ff;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 2rem 16px;
+        background: var(--bg);
+        color: var(--text);
+        font: 18px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      a {
+        color: var(--link);
+      }
+      .muted {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Digit Span Task</h1>
+      <p>A forward digit span task built with jsPsych 7.3.1 for embedding in Qualtrics (PSC 1, UC Davis).</p>
+      <p><a href="./qualtrics-v7/preview.html">Try the task preview</a></p>
+      <p class="muted">The preview does not save any data.</p>
+    </main>
+  </body>
+</html>
