@@ -5,7 +5,7 @@
   "description": "Forward digit span task (jsPsych 7.3.1) for embedding in Qualtrics",
   "scripts": {
     "serve": "http-server . -a 127.0.0.1 -p 4174 -c-1",
-    "build:qsf": "node qualtrics-v7/generate-stm-qsf.js",
+    "build:qsf": "node qualtrics-v7/generate-qsf.js",
     "test": "playwright test"
   },
   "license": "MIT",

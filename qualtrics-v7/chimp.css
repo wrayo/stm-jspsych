@@ -1,0 +1,148 @@
+/* Number grid (chimp-style) task styles. Sized for phones first, then laptops. */
+
+#display_stage,
+#display_stage .jspsych-content {
+  color: #1d2433;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* the grid sizes itself from the stage, so the content box must not cap it */
+#display_stage .jspsych-content {
+  max-width: 100%;
+  width: 100%;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.chimp-text {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: clamp(17px, 4.4vw, 21px);
+  line-height: 1.55;
+  text-align: left;
+}
+
+.chimp-text h2 {
+  font-size: clamp(24px, 6vw, 32px);
+  margin: 0 0 0.75rem;
+  text-align: center;
+}
+
+.chimp-ready {
+  text-align: center;
+}
+
+.chimp-ready-label {
+  font-size: clamp(16px, 4vw, 20px);
+  color: #5a6478;
+  margin: 0 0 0.5rem;
+}
+
+.chimp-ready-text {
+  font-size: clamp(30px, 8vw, 44px);
+  font-weight: 600;
+  margin: 0;
+}
+
+.chimp-prompt {
+  font-size: clamp(15px, 4vw, 19px);
+  color: #5a6478;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.chimp-grid {
+  position: relative;
+  margin: 0 auto;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.chimp-tile {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 0;
+  border: 3px solid #022851;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #022851;
+  font-family: inherit;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* hidden: numbers covered by solid tiles */
+.chimp-hidden .chimp-tile {
+  background: #022851;
+}
+
+.chimp-hidden .chimp-tile-number {
+  visibility: hidden;
+}
+
+/* tapped correctly: tile leaves the grid */
+.chimp-tile-done {
+  visibility: hidden;
+}
+
+/* after a wrong tap: every number shown again, the wrong tile in red */
+.chimp-reveal .chimp-tile,
+.chimp-reveal .chimp-tile-done {
+  visibility: visible;
+  background: #ffffff;
+  cursor: default;
+}
+
+.chimp-reveal .chimp-tile-done {
+  opacity: 0.35;
+}
+
+.chimp-reveal .chimp-tile-wrong {
+  background: #f6d9d2;
+  border-color: #a3361f;
+  color: #a3361f;
+}
+
+.chimp-feedback {
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 700;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.chimp-feedback-correct {
+  color: #1f7a3d;
+}
+
+.chimp-feedback-wrong {
+  color: #a3361f;
+}
+
+.chimp-span-score {
+  font-size: clamp(64px, 18vw, 110px);
+  font-weight: 700;
+  line-height: 1;
+  margin: 0.25rem 0 1rem;
+  text-align: center;
+  color: #022851;
+}
+
+#display_stage .jspsych-btn {
+  font-size: 20px;
+  padding: 12px 28px;
+  border-radius: 10px;
+  margin-top: 1rem;
+  font-family: inherit;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .chimp-grid:not(.chimp-reveal) .chimp-tile:hover {
+    border-color: #0d5fb3;
+  }
+}

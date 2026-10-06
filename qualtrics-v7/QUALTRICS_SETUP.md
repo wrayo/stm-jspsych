@@ -1,4 +1,6 @@
-# Qualtrics Setup: Digit Span
+# Qualtrics Setup: Digit Span and Number Grid
+
+The two tasks are separate surveys with the same structure. Digit span files and fields use `stm`; the number grid (chimp-style) task uses `chimp`. The steps below are written for digit span; for the number grid task swap in `Chimp_Task.qsf`, `chimp-question.html`, `chimp-qualtrics.js`, and the `chimp_` fields listed at the end.
 
 ## Fast path: import the survey
 
@@ -41,9 +43,39 @@ Edit `taskConfig` at the top of `stm-qualtrics.js` (or the Question JavaScript i
 - `trialsPerLength`: lists at each length (default 2). The task stops when every list at a length is wrong.
 - `showFeedback`: brief "Correct" / "Not quite" after each list (default true)
 
-After editing `stm-qualtrics.js` in the repo, run `npm run build:qsf` to rebuild `Digit_Span.qsf`.
+After editing `stm-qualtrics.js` or `chimp-qualtrics.js` in the repo, run `npm run build:qsf` to rebuild both QSF files.
 
 ## Troubleshooting
 
 - "The digit memory task is loading" never goes away: the GitHub Pages site is down or the URL in `siteBaseUrl` is wrong. Open `https://wrayo.github.io/stm-jspsych/qualtrics-v7/stm-v7-task.js` in a browser to check.
 - The task does not run in the Qualtrics mobile preview pane. This is on purpose. Use the anonymous link.
+
+## Number grid task
+
+### Embedded Data fields
+
+The same 10 fields as digit span, with the `chimp_` prefix: `chimp_participant_id`, `chimp_span`, `chimp_total_correct`, `chimp_trials_completed`, `chimp_max_length_reached`, `chimp_duration_ms`, `chimp_device_touch`, `chimp_summary_json`, `chimp_practice_json`, `chimp_trials_json`.
+
+`chimp_span` is the most numbers tapped in the right order at least once (0 if none). Each row of `chimp_trials_json` has:
+
+| Key | Contents |
+|---|---|
+| `length`, `trial_in_length` | Round size and which of the two rounds at that size |
+| `layout` | Cell of each number, in order (cells 0 to 39, row * 8 + column on the 8 x 5 grid) |
+| `taps` | Cells the student tapped, in order |
+| `correct` | 1 if every number was tapped in order |
+| `n_correct_before_error` | Numbers tapped correctly before the first wrong tap |
+| `study_ms` | Time from the grid appearing to the first tap |
+| `rt_ms` | Time from the grid appearing to the end of the round |
+| `grid` | `8x5` (wide screen) or `5x8` (phone held upright) |
+| `hidden_by` | `tap` or `timer`: what hid the numbers |
+
+### Changing settings
+
+Edit `taskConfig` at the top of `chimp-qualtrics.js`:
+
+- `minLength` / `maxLength`: numbers per round (default 4 to 12)
+- `trialsPerLength`: rounds at each size (default 2). The task stops when every round at a size is wrong.
+- `exposureMs`: 0 (default) keeps the numbers up until the first tap. A value such as 1000 hides them after that many milliseconds.
+- `revealMs`: how long the numbers are shown again after a wrong tap (default 1000)
+- `readyMs`, `feedbackMs`, `showFeedback`: same as digit span

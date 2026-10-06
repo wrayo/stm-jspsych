@@ -27,14 +27,20 @@
   </head>
   <body>
     <div id="question-html"></div>
-    <script src="/qualtrics-v7/stm-qualtrics.js"></script>
     <script>
-      fetch("/qualtrics-v7/stm-question.html")
-        .then(function (r) { return r.text(); })
-        .then(function (html) {
-          document.getElementById("question-html").innerHTML = html;
-          window.__onload.forEach(function (fn) { fn.call(window.__question); });
-        });
+      // ?task=chimp loads the number grid wrapper; the default is the digit span wrapper
+      var task = new URLSearchParams(window.location.search).get("task") === "chimp" ? "chimp" : "stm";
+      var wrapper = document.createElement("script");
+      wrapper.src = "/qualtrics-v7/" + task + "-qualtrics.js";
+      wrapper.onload = function () {
+        fetch("/qualtrics-v7/" + task + "-question.html")
+          .then(function (r) { return r.text(); })
+          .then(function (html) {
+            document.getElementById("question-html").innerHTML = html;
+            window.__onload.forEach(function (fn) { fn.call(window.__question); });
+          });
+      };
+      document.body.appendChild(wrapper);
     </script>
   </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Number Grid Preview</title>
+    <link rel="stylesheet" href="./lib/jspsych-7.3.1/jspsych.css" />
+    <link rel="stylesheet" href="./chimp.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #f6f7fb;
+      }
+
+      #display_stage_background {
+        position: fixed;
+        inset: 0;
+        background-color: #f6f7fb;
+        z-index: -1;
+      }
+
+      #display_stage {
+        position: fixed;
+        left: 1vw;
+        top: 1vh;
+        width: 98vw;
+        height: 98vh;
+        border-radius: 15px;
+        background: linear-gradient(180deg, #f6f7fb 0%, #edf1f7 100%);
+        box-shadow: 1px 1px 1px #999;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      #summary_panel {
+        display: none;
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        width: min(420px, calc(100vw - 2rem));
+        max-height: 40vh;
+        overflow: auto;
+        padding: 0.9rem 1rem;
+        border-radius: 0.9rem;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 12px 28px rgba(38, 58, 90, 0.16);
+        font: 0.85rem/1.45 Menlo, Consolas, monospace;
+        z-index: 10;
+      }
+
+      #summary_panel pre {
+        margin: 0.5rem 0 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="display_stage_background"></div>
+    <div id="display_stage"></div>
+    <div id="summary_panel">
+      Preview finished. This payload is what Qualtrics would receive.
+      <pre id="summary_output"></pre>
+    </div>
+
+    <script>
+      // Optional URL params for fast testing, for example ?readyMs=50&feedbackMs=50&revealMs=50&exposureMs=1000&seed=abc&test=1
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var config = {
+          displayElement: "display_stage",
+          participantId: "preview-participant",
+          finishButtonLabel: "Finish preview"
+        };
+        ["readyMs", "feedbackMs", "revealMs", "exposureMs", "minLength", "maxLength", "trialsPerLength", "practiceLength"].forEach(function (name) {
+          if (params.has(name)) {
+            config[name] = Number(params.get(name));
+          }
+        });
+        if (params.has("seed")) {
+          config.seed = params.get("seed");
+        }
+        if (params.get("feedback") === "0") {
+          config.showFeedback = false;
+        }
+        if (params.get("test") === "1") {
+          config.exposeSequences = true;
+        }
+        window.chimpTaskConfig = config;
+      })();
+
+      window.chimpTaskHooks = {
+        onFinish: function (jsPsychInstance, payload) {
+          document.getElementById("summary_output").textContent = JSON.stringify(payload, null, 2);
+          document.getElementById("summary_panel").style.display = "block";
+        }
+      };
+    </script>
+    <script src="./lib/jspsych-7.3.1/jspsych.js"></script>
+    <script src="./lib/jspsych-7.3.1/plugin-html-button-response.js"></script>
+    <script src="./lib/jspsych-7.3.1/plugin-html-keyboard-response.js"></script>
+    <script src="./chimp-v7-task.js"></script>
+  </body>
+</html>
